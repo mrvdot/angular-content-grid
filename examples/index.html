@@ -1,0 +1,21 @@
+<html ng-app="mvdContentGrid">
+	<head>
+		<title>MVD Content Grid Example</title>
+	</head>
+	<body ng-controller="ExampleController">
+		<div content-grid="elements" listeners="listeners"></div>
+		<script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../libaries/masonry.pkgd.min.js"></script>
+		<script type="text/javascript" src="../scripts/content-grid.js"></script>
+		<script type="text/javascript">
+			function ExampleController($scope, $element, $http) {
+				$scope.elements = [];
+
+				$http.get('elements.json', function (response) {
+					$scope.elements = response;
+				});
+			}
+		</script>
+	</body>
+</html>
