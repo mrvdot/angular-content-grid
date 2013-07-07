@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('mvdContentGrid', ['ngSanitize'])
 	.directive('contentGrid', function () {
 		var tpl = '<div class="content-grid">' + 
@@ -11,8 +13,70 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 				'listeners' : '=',
 				'userOptions' : '=options'
 			},
+			require : 'contentGrid',
 			controller : function ($scope, $element, $attrs) {
-				
+				var ctrl = this;
+
+				var defaults = {
+					inlineStyle : false,//Set to true if you want all elements to get automatic width
+					columns : 4,//How many columns should we have
+					columnWidth : 0,//Set this to force a specific column width, instead of calculating based on columns property
+					gutter : 0
+				};
+
+				var opts = ctrl.options = angular.extend({}, defaults, $scope.userOptions || {});
+
+				/*var registeredElements = [];
+
+				//Register grid element, used to keep track of what all has
+				//compiled and let us know if all the elements are ready for Masonry
+				ctrl.registerGridElement = function (id, $el) {
+					var size = registeredElements.push({
+						id : id,
+						element : $el
+					});
+
+					if ($scope.elements.length == size) {
+						//Loose check to see if everything is registered
+						initOrUpdateMasonry();
+					};
+				};
+
+				ctrl.unregisterGridElement = function (id) {
+
+				}//*/
+			},
+			link : function ($scope, $element, $attrs, ctrl) {
+				if ($scope.elements.length) {
+					setTimeout(function () {
+						initOrUpdateMasonry();
+					});
+				};
+
+				var initialized = false;
+				var initOrUpdateMasonry = function () {
+					if (!initialized) {
+						var opts = {
+							columnWidth : ctrl.options.columnWidth || ($element.width() / ctrl.options.columns),
+							itemSelector : '.grid-element',
+							gutter : ctrl.options.gutter
+						};
+						console.log('initializing with', opts);
+						initialized = $element.masonry(opts);
+						console.log(initialized);
+					} else {
+						//Already initialized, just update
+						console.log('updating');
+						$element.masonry('reloadItems');
+						$element.masonry();
+					}
+				};
+
+				$scope.$watch('elements', function (nv, ov) {
+					if (nv) {
+						initOrUpdateMasonry();
+					};
+				});
 			}
 		}
 	})
@@ -24,10 +88,11 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 		return {
 			template : tpl,
 			replace : true,
+			require : '^contentGrid',
 			scope : {
 				'element' : '=contentGridElement'
 			},
-			link : function ($scope, $element, $attrs) {
+			link : function ($scope, $element, $attrs, gridCtrl) {
 				$element.data('element-id', $scope.element.id);
 			}
 		}
