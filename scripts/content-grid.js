@@ -61,12 +61,9 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 							itemSelector : '.grid-element',
 							gutter : ctrl.options.gutter
 						};
-						console.log('initializing with', opts);
 						initialized = $element.masonry(opts);
-						console.log(initialized);
 					} else {
 						//Already initialized, just update
-						console.log('updating');
 						$element.masonry('reloadItems');
 						$element.masonry();
 					}
