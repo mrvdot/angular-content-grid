@@ -15,4 +15,21 @@ describe('Content Grid', function () {
 	it('should have applied masonry', function () {
 		expect(element('.grid-element:first').css('position')).toBe('absolute')
 	})
+
+	it('should have sized masonry correctly', function () {
+		var maxElHeight = 0;
+		element('.grid-element').query(function (elements, done) {
+			elements.each(function (idx) {
+				var el = elements.eq(0);
+				var elHeight = el.outerHeight();
+				if (elHeight > maxElHeight) {
+					maxElHeight = elHeight;
+				};
+			});
+
+			done();
+		});
+
+		expect(element('.content-grid').outerHeight()).not().toBeLessThan(maxElHeight)
+	})
 })
