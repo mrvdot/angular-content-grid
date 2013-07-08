@@ -64,6 +64,7 @@ describe('Content Grid', function () {
 		it('should not fire ' + initEvent + ' event when initialized with no elements', function () {
 			var $parScope = $rootScope.$new();
 			var initialized = false;
+
 			$parScope.$on(initEvent, function () {
 				initialized = true;
 			});
@@ -87,15 +88,24 @@ describe('Content Grid', function () {
 			];
 
 			var initialized = false;
-			$parScope.$on(initEvent, function () {
-				initialized = true;
+
+			runs(function () {
+				$parScope.$on(initEvent, function () {
+					initialized = true;
+				});
+				
+				var $el = $compile(tpl)($parScope);
+
+				$rootScope.$digest();
 			});
-			
-			var $el = $compile(tpl)($parScope);
 
-			$rootScope.$digest();
+			waitsFor(function () {
+				return initialized;
+			}, 'Initialized should have been fired', 200);
 
-			expect(initialized).toBe(true);
+			runs(function () {
+				expect(initialized).toBe(true);
+			})
 		});
 
 		it('should fire ' + updateEvent + ' event when elements change', function () {
@@ -113,21 +123,35 @@ describe('Content Grid', function () {
 			$parScope.$on(updateEvent, function () {
 				changed = true;
 			});
-			
-			var $el = $compile(tpl)($parScope);
-			$parScope.$digest();
 
-			expect(changed).toBe(false);
+			runs(function () {
+				$parScope.$on(updateEvent, function () {
+					changed = true;
+				});
+				
+				var $el = $compile(tpl)($parScope);
 
-			$parScope.elements.push({
-				id : 2,
-				title : 'TITLE2',
-				content : 'MORE CONTENT'
+				$rootScope.$digest();
+
+				//Should not have fired yet
+				expect(changed).toBe(false);
+
+				$parScope.elements.push({
+					id : 2,
+					title : 'TITLE2',
+					content : 'MORE CONTENT'
+				});
+
+				$parScope.$digest();
 			});
 
-			$parScope.$digest();
+			waitsFor(function () {
+				return changed;
+			}, 'changed should be fired', 200);
 
-			expect(changed).toBe(true);
+			runs(function () {
+				expect(changed).toBe(true);
+			})
 		})
 	})
 })
