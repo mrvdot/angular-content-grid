@@ -57,4 +57,77 @@ describe('Content Grid', function () {
 
 	})
 
+	describe('Events', function () {
+		var initEvent = 'masonry-initialized'
+			, updateEvent = 'masonry-updated';
+
+		it('should not fire ' + initEvent + ' event when initialized with no elements', function () {
+			var $parScope = $rootScope.$new();
+			var initialized = false;
+			$parScope.$on(initEvent, function () {
+				initialized = true;
+			});
+			
+			var $el = $compile(tpl)($parScope);
+
+			$rootScope.$digest();
+
+			expect(initialized).toBe(false);
+		})
+
+		it('should fire ' + initEvent + ' event when initialized with elements', function () {
+			var $parScope = $rootScope.$new();
+
+			$parScope.elements = [
+				{
+					title : "TITLE",
+					id : 1,
+					content : "<p>CONTENT</p>"
+				}
+			];
+
+			var initialized = false;
+			$parScope.$on(initEvent, function () {
+				initialized = true;
+			});
+			
+			var $el = $compile(tpl)($parScope);
+
+			$rootScope.$digest();
+
+			expect(initialized).toBe(true);
+		});
+
+		it('should fire ' + updateEvent + ' event when elements change', function () {
+			var $parScope = $rootScope.$new();
+
+			$parScope.elements = [
+				{
+					title : "TITLE",
+					id : 1,
+					content : "<p>CONTENT</p>"
+				}
+			];
+
+			var changed = false;
+			$parScope.$on(updateEvent, function () {
+				changed = true;
+			});
+			
+			var $el = $compile(tpl)($parScope);
+			$parScope.$digest();
+
+			expect(changed).toBe(false);
+
+			$parScope.elements.push({
+				id : 2,
+				title : 'TITLE2',
+				content : 'MORE CONTENT'
+			});
+
+			$parScope.$digest();
+
+			expect(changed).toBe(true);
+		})
+	})
 })

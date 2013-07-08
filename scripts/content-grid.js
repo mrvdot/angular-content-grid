@@ -10,7 +10,7 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 			replace : true,
 			scope : {
 				'elements' : '=contentGrid',
-				'listeners' : '=',
+				'userListeners' : '=listeners',
 				'userOptions' : '=options'
 			},
 			require : 'contentGrid',
@@ -24,30 +24,16 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 					gutter : 0
 				};
 
+				var listeners = {
+					layoutComplete : angular.noop,
+					removeComplete : angular.noop
+				}
+
 				var opts = ctrl.options = angular.extend({}, defaults, $scope.userOptions || {});
-
-				/*var registeredElements = [];
-
-				//Register grid element, used to keep track of what all has
-				//compiled and let us know if all the elements are ready for Masonry
-				ctrl.registerGridElement = function (id, $el) {
-					var size = registeredElements.push({
-						id : id,
-						element : $el
-					});
-
-					if ($scope.elements.length == size) {
-						//Loose check to see if everything is registered
-						initOrUpdateMasonry();
-					};
-				};
-
-				ctrl.unregisterGridElement = function (id) {
-
-				}//*/
 			},
 			link : function ($scope, $element, $attrs, ctrl) {
-				if ($scope.elements.length) {
+				if ($scope.elements && $scope.elements.length) {
+					//Already have elements ready to organize
 					setTimeout(function () {
 						initOrUpdateMasonry();
 					});
@@ -62,18 +48,22 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 							gutter : ctrl.options.gutter
 						};
 						initialized = $element.masonry(opts);
+						$scope.$emit('masonry-initialized');
 					} else {
-						//Already initialized, just update
+						//Already initialized, just grab new items and update layout
 						$element.masonry('reloadItems');
 						$element.masonry();
+						$scope.$emit('masonry-updated', $scope.elements);
 					}
 				};
 
 				$scope.$watch('elements', function (nv, ov) {
 					if (nv) {
-						initOrUpdateMasonry();
+						setTimeout(function () {
+							initOrUpdateMasonry();
+						});
 					};
-				});
+				}, true);
 			}
 		}
 	})

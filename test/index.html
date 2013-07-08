@@ -1,0 +1,46 @@
+<html ng-app="mvdContentGrid">
+	<head>
+		<title>MVD Content Grid Example</title>
+		<style type="text/css">
+			.grid-element {
+				width: 25%;
+				box-shadow: 0 0 5px lightgray;
+				padding: 5px;
+			}
+
+			.grid-element .title {
+				font-weight: bold;
+				font-size: 1.2em;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body ng-controller="ExampleController">
+		<div content-grid="elements" listeners="listeners" options="gridOptions"></div>
+		<script type="text/javascript" src="../bower_components/jquery/jquery.js"></script>
+		<script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../libraries/masonry.pkgd.min.js"></script>
+		<script type="text/javascript" src="../scripts/content-grid.js"></script>
+		<script type="text/javascript">
+			function ExampleController($scope, $element, $http) {
+				$scope.elements = [
+					{
+						"id" : 0,
+						"title" : "Moby Dick",
+						"content" : "<p>Though Stubb did not understand the BOUTON part of the inscription, yet the word ROSE, and the bulbous figure-head put together, sufficiently explained the whole to him.</p><p>\"A wooden rose-bud, eh?\" he cried with his hand to his nose, \"that will do very well; but how like all creation it smells!\"</p><p>Now in order to hold direct communication with the people on deck, he had to pull round the bows to the starboard side, and thus come close to the blasted whale; and so talk over it.</p>"
+					},
+					{
+						"id" : 1,
+						"title" : "War of the Worlds",
+						"content" : "<p>I and my wife stood amazed.  Then I realised that the crest of Maybury Hill must be within range of the Martians' Heat-Ray now that the college was cleared out of the way.</p><p>At that I gripped my wife's arm, and without ceremony ran her out into the road.  Then I fetched out the servant, telling her I would go upstairs myself for the box she was clamouring for.</p><p>\"We can't possibly stay here,\" I said; and as I spoke the firing reopened for a moment upon the common.</p>"
+					}
+				];
+
+				$scope.gridOptions = {
+					gutter : 20
+				}
+			}
+		</script>
+	</body>
+</html>
