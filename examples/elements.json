@@ -2,11 +2,26 @@
 	{
 		"id" : 0,
 		"title" : "Moby Dick",
-		"content" : "<p>Though Stubb did not understand the BOUTON part of the inscription, yet the word ROSE, and the bulbous figure-head put together, sufficiently explained the whole to him.</p><p>\"A wooden rose-bud, eh?\" he cried with his hand to his nose, \"that will do very well; but how like all creation it smells!\"</p><p>Now in order to hold direct communication with the people on deck, he had to pull round the bows to the starboard side, and thus come close to the blasted whale; and so talk over it.</p>"
+		"content" : "<p>Though Stubb did not understand the BOUTON part of the inscription, yet the word ROSE, and the bulbous figure-head put together, sufficiently explained the whole to him.</p><p>\"A wooden rose-bud, eh?\" he cried with his hand to his nose, \"that will do very well; but how like all creation it smells!\"</p>"
 	},
 	{
 		"id" : 1,
-		"title" : "War of the Worlds",
-		"content" : "<p>I and my wife stood amazed.  Then I realised that the crest of Maybury Hill must be within range of the Martians' Heat-Ray now that the college was cleared out of the way.</p><p>At that I gripped my wife's arm, and without ceremony ran her out into the road.  Then I fetched out the servant, telling her I would go upstairs myself for the box she was clamouring for.</p><p>\"We can't possibly stay here,\" I said; and as I spoke the firing reopened for a moment upon the common.</p>"
+		"title" : "War of the Worlds pt 1",
+		"content" : "<p>I and my wife stood amazed.  Then I realised that the crest of Maybury Hill must be within range of the Martians' Heat-Ray now that the college was cleared out of the way.</p>"
+	},
+	{
+		"id" : 2,
+		"title" : "War of the Worlds pt 2",
+		"content" : "<p>At that I gripped my wife's arm, and without ceremony ran her out into the road.  Then I fetched out the servant, telling her I would go upstairs myself for the box she was clamouring for.</p>"
+	},
+	{
+		"id" : 3,
+		"title" : "War of the Worlds pt 3",
+		"content" : "<p>\"We can't possibly stay here,\" I said; and as I spoke the firing reopened for a moment upon the common.</p>"
+	},
+	{
+		"id" : 4,
+		"title" : "More Moby Dick",
+		"content" : "<p>Now in order to hold direct communication with the people on deck, he had to pull round the bows to the starboard side, and thus come close to the blasted whale; and so talk over it.</p>"
 	}
 ]
