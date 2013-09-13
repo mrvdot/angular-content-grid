@@ -1,6 +1,6 @@
 {
   "name": "angular-content-grid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "scripts/content-grid.js",
   "ignore": [
     "**/.*",
@@ -12,11 +12,14 @@
   ],
   "dependencies": {
     "masonry": "~3.0.1",
-    "angular": "~1.0.7",
+    "angular": "~1.2.x",
     "jquery": "~2.0.3",
-    "angular-sanitize": "~1.0.7"
+    "angular-sanitize": "~1.2.x"
   },
   "devDependencies": {
-    "angular-mocks": "~1.0.7"
+    "angular-mocks": "~1.2.x"
+  },
+  "resolutions": {
+    "angular": "~1.2.x"
   }
 }

@@ -1,5 +1,5 @@
+(function (angular) {
 'use strict';
-
 angular.module('mvdContentGrid', ['ngSanitize'])
 	.directive('contentGrid', function () {
 		var tpl = '<div class="content-grid">' + 
@@ -68,9 +68,13 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 		}
 	})
 	.directive('contentGridElement', function () {
+		var insides = '<p class="title">{{element.title}}</p>' + 
+			'<div class="content" ng-bind-html="element.content"></div>';
+		if (jQuery('#content-grid-tpl').length) {
+			insides = jQuery('#content-grid-tpl').html();
+		};
 		var tpl = '<div class="grid-element">' + 
-			'<p class="title">{{element.title}}</p>' + 
-			'<div class="content" ng-bind-html="element.content"></div>' + 
+			insides + 
 		'</div>';
 		return {
 			template : tpl,
@@ -83,4 +87,5 @@ angular.module('mvdContentGrid', ['ngSanitize'])
 				$element.data('element-id', $scope.element.id);
 			}
 		}
-	})
+	});
+})(angular);
